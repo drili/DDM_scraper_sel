@@ -10,6 +10,7 @@ import datetime
 import bs4
 import re
 import time
+import json
 
 print("sample test case started")
 options = Options()
@@ -190,4 +191,13 @@ finally:
                 driver_familiepakker.quit()
                 # print(array_all)
                 print(array_all)
+
+                ### Serializing json
+                # json_object = json.dumps(array_all, indent = 1) 
+
+                ### Create JSON file and import data
+                with open("testfile.json", "w") as f:
+                    f.write(json.dumps(array_all, separators=(',', ': ')))
+                    print("::: JSON file created & data dumped.")
+                    # print(json_object)
     
