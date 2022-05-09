@@ -17,6 +17,7 @@ options.headless = True
 options.add_argument("--window-size=1920,1200")
 
 array_all = []
+array_associative_all = {"Title":[], "ID":[]}
 
 ### Hovedretter
 driver = webdriver.Chrome(options=options, executable_path=r"C:\Users\kynet\Desktop\Python\Kunder\DDM\scraper\Browsers\chromedriver.exe")
@@ -35,9 +36,11 @@ finally:
     
     iterator = 0
     array_all_hovedretter = []
+    array_associative_hovedretter = dict()
     for product in products[0]:
         iterator += 1
-        array_associative_hovedretter = {"id":[], "url":[], "title":[], "price":[], "thumbnail":[], "large_image":[], "week":[], "category":[]}
+        product_array_data = []
+        
         title = product.find('h3').contents[0].strip()
         data_entity_id = product["data-entity-id"]
         data_url = product["data-url"]
@@ -46,19 +49,20 @@ finally:
         thumbnail_formatted = re.findall("'([^']*)'", thumbnail)
         current_week = datetime.datetime.now().isocalendar()[1]
         category = "Hovedretter"
-        # product_array_data.extend([title,data_entity_id,data_url,price,thumbnail_formatted[0],current_week,category])
-        # array_all_hovedretter.append(product_array_data)
+        product_array_data.extend([title,data_entity_id,data_url,price,thumbnail_formatted[0],current_week,category])
+        array_all_hovedretter.append(product_array_data)
 
-        array_associative_hovedretter["id"].append(data_entity_id)
-        array_associative_hovedretter["url"].append(data_url)
-        array_associative_hovedretter["title"].append(title)
-        array_associative_hovedretter["price"].append(price)
-        array_associative_hovedretter["thumbnail"].append(thumbnail_formatted[0])
-        array_associative_hovedretter["large_image"].append(thumbnail_formatted[0])
-        array_associative_hovedretter["week"].append(current_week)
-        array_associative_hovedretter["category"].append(category)
+        array_associative_all["Title"].append(title)
+        array_associative_all["ID"].append(data_entity_id)
+        # array_associative_all["title"] = title
+        # array_associative_all["data_entity_id"] = data_entity_id
+        # array_associative_all["data_url"] = data_url
+        # array_associative_all["price"] = price
+        # array_associative_all["thumbnail_formatted"] = thumbnail_formatted[0]
+        # array_associative_all["current_week"] = current_week
+        # array_associative_all["category"] = category
         
-        array_all.append(array_associative_hovedretter)
+    array_all.append(array_all_hovedretter)
     driver.quit()
     # with open('test.txt', 'w') as myFile:
     #     myFile.write(h3_tags_array)
@@ -81,7 +85,8 @@ finally:
         array_all_forretter = []
         for product in products[1]:
             iterator += 1
-            array_associative_forretter = {"id":[], "url":[], "title":[], "price":[], "thumbnail":[], "large_image":[], "week":[], "category":[]}
+            product_array_data = []
+
             title = product.find('h3').contents[0].strip()
             data_entity_id = product["data-entity-id"]
             data_url = product["data-url"]
@@ -90,19 +95,12 @@ finally:
             thumbnail_formatted = re.findall("'([^']*)'", thumbnail)
             current_week = datetime.datetime.now().isocalendar()[1]
             category = "Forretter"
-            # product_array_data.extend([title,data_entity_id,data_url,price,thumbnail_formatted[0],current_week,category])
-            # array_all_hovedretter.append(product_array_data)
+            product_array_data.extend([title,data_entity_id,data_url,price,thumbnail_formatted[0],current_week,category])
+            array_all_forretter.append(product_array_data)
 
-            array_associative_forretter["id"].append(data_entity_id)
-            array_associative_forretter["url"].append(data_url)
-            array_associative_forretter["title"].append(title)
-            array_associative_forretter["price"].append(price)
-            array_associative_forretter["thumbnail"].append(thumbnail_formatted[0])
-            array_associative_forretter["large_image"].append(thumbnail_formatted[0])
-            array_associative_forretter["week"].append(current_week)
-            array_associative_forretter["category"].append(category)
-
-            array_all.append(array_associative_forretter)
+        # with open('test.txt', 'w') as myFile:
+        #     myFile.write(h3_tags_array)
+        array_all.append(array_all_forretter)
         driver_forretter.quit()
     
         ### Desserter
@@ -123,7 +121,8 @@ finally:
             array_all_desserter = []
             for product in products[2]:
                 iterator += 1
-                array_associative_desserter = {"id":[], "url":[], "title":[], "price":[], "thumbnail":[], "large_image":[], "week":[], "category":[]}
+                product_array_data = []
+
                 title = product.find('h3').contents[0].strip()
                 data_entity_id = product["data-entity-id"]
                 data_url = product["data-url"]
@@ -132,19 +131,12 @@ finally:
                 thumbnail_formatted = re.findall("'([^']*)'", thumbnail)
                 current_week = datetime.datetime.now().isocalendar()[1]
                 category = "Desserter"
-                # product_array_data.extend([title,data_entity_id,data_url,price,thumbnail_formatted[0],current_week,category])
-                # array_all_hovedretter.append(product_array_data)
+                product_array_data.extend([title,data_entity_id,data_url,price,thumbnail_formatted[0],current_week,category])
+                array_all_desserter.append(product_array_data)
 
-                array_associative_desserter["id"].append(data_entity_id)
-                array_associative_desserter["url"].append(data_url)
-                array_associative_desserter["title"].append(title)
-                array_associative_desserter["price"].append(price)
-                array_associative_desserter["thumbnail"].append(thumbnail_formatted[0])
-                array_associative_desserter["large_image"].append(thumbnail_formatted[0])
-                array_associative_desserter["week"].append(current_week)
-                array_associative_desserter["category"].append(category)
-
-                array_all.append(array_associative_desserter)
+            # with open('test.txt', 'w') as myFile:
+            #     myFile.write(h3_tags_array)
+            array_all.append(array_all_desserter)
             driver_desserter.quit()
 
             ### Familiepakker
@@ -165,7 +157,8 @@ finally:
                 array_all_familiepakker = []
                 for product in products[3]:
                     iterator += 1
-                    array_associative_familiepakker = {"id":[], "url":[], "title":[], "price":[], "thumbnail":[], "large_image":[], "week":[], "category":[]}
+                    product_array_data = []
+
                     title = product.find('h3').contents[0].strip()
                     data_entity_id = product["data-entity-id"]
                     data_url = product["data-url"]
@@ -174,20 +167,12 @@ finally:
                     thumbnail_formatted = re.findall("'([^']*)'", thumbnail)
                     current_week = datetime.datetime.now().isocalendar()[1]
                     category = "Familiepakker"
-                    # product_array_data.extend([title,data_entity_id,data_url,price,thumbnail_formatted[0],current_week,category])
-                    # array_all_hovedretter.append(product_array_data)
-
-                    array_associative_familiepakker["id"].append(data_entity_id)
-                    array_associative_familiepakker["url"].append(data_url)
-                    array_associative_familiepakker["title"].append(title)
-                    array_associative_familiepakker["price"].append(price)
-                    array_associative_familiepakker["thumbnail"].append(thumbnail_formatted[0])
-                    array_associative_familiepakker["large_image"].append(thumbnail_formatted[0])
-                    array_associative_familiepakker["week"].append(current_week)
-                    array_associative_familiepakker["category"].append(category)
-
-                    array_all.append(array_associative_familiepakker)
+                    product_array_data.extend([title,data_entity_id,data_url,price,thumbnail_formatted[0],current_week,category])
+                    array_all_familiepakker.append(product_array_data)
+                    
+                # with open('test.txt', 'w') as myFile:
+                #     myFile.write(h3_tags_array)
+                array_all.append(array_all_familiepakker)
                 driver_familiepakker.quit()
                 # print(array_all)
-                print(array_all)
-    
+                print(array_associative_all)
