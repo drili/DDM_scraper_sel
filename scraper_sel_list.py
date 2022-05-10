@@ -17,10 +17,10 @@ options = Options()
 options.headless = True
 options.add_argument("--window-size=1920,1200")
 
-array_all = []
+array_all = {"items":[]}
 
 ### Hovedretter
-driver = webdriver.Chrome(options=options, executable_path=r"C:\Users\kynet\Desktop\Python\Kunder\DDM\scraper\Browsers\chromedriver.exe")
+driver = webdriver.Chrome(options=options, executable_path=r"C:\Users\Drilon Braha\Desktop\Python\KYNETIC\DDM_selscraper\scraper\Browsers\chromedriver.exe")
 driver.get("https://detdanskemadhus.dk/bestil-privat#hovedretter")
 try:
     element = WebDriverWait(driver, 5).until(
@@ -38,7 +38,7 @@ finally:
     array_all_hovedretter = []
     for product in products[0]:
         iterator += 1
-        array_associative_hovedretter = {"id":[], "url":[], "title":[], "price":[], "thumbnail":[], "large_image":[], "week":[], "category":[]}
+        array_associative_hovedretter = {}
         title = product.find('h3').contents[0].strip()
         data_entity_id = product["data-entity-id"]
         data_url = product["data-url"]
@@ -50,22 +50,22 @@ finally:
         # product_array_data.extend([title,data_entity_id,data_url,price,thumbnail_formatted[0],current_week,category])
         # array_all_hovedretter.append(product_array_data)
 
-        array_associative_hovedretter["id"].append(data_entity_id)
-        array_associative_hovedretter["url"].append(data_url)
-        array_associative_hovedretter["title"].append(title)
-        array_associative_hovedretter["price"].append(price)
-        array_associative_hovedretter["thumbnail"].append(thumbnail_formatted[0])
-        array_associative_hovedretter["large_image"].append(thumbnail_formatted[0])
-        array_associative_hovedretter["week"].append(current_week)
-        array_associative_hovedretter["category"].append(category)
+        array_associative_hovedretter.update({"id": data_entity_id})
+        array_associative_hovedretter.update({"url": data_url})
+        array_associative_hovedretter.update({"title": title})
+        array_associative_hovedretter.update({"price": price})
+        array_associative_hovedretter.update({"thumbnail": "https://detdanskemadhus.dk/"+thumbnail_formatted[0]})
+        array_associative_hovedretter.update({"large_image": "https://detdanskemadhus.dk/"+thumbnail_formatted[0]})
+        array_associative_hovedretter.update({"week": current_week})
+        array_associative_hovedretter.update({"category": category})
         
-        array_all.append(array_associative_hovedretter)
+        array_all["items"].append(array_associative_hovedretter)
     driver.quit()
     # with open('test.txt', 'w') as myFile:
     #     myFile.write(h3_tags_array)
 
     ### Forretter
-    driver_forretter = webdriver.Chrome(options=options, executable_path=r"C:\Users\kynet\Desktop\Python\Kunder\DDM\scraper\Browsers\chromedriver.exe")
+    driver_forretter = webdriver.Chrome(options=options, executable_path=r"C:\Users\Drilon Braha\Desktop\Python\KYNETIC\DDM_selscraper\scraper\Browsers\chromedriver.exe")
     driver_forretter.get("https://detdanskemadhus.dk/bestil-privat#forretter")
     try:
         element = WebDriverWait(driver_forretter, 5).until(
@@ -82,7 +82,7 @@ finally:
         array_all_forretter = []
         for product in products[1]:
             iterator += 1
-            array_associative_forretter = {"id":[], "url":[], "title":[], "price":[], "thumbnail":[], "large_image":[], "week":[], "category":[]}
+            array_associative_forretter = {}
             title = product.find('h3').contents[0].strip()
             data_entity_id = product["data-entity-id"]
             data_url = product["data-url"]
@@ -94,20 +94,20 @@ finally:
             # product_array_data.extend([title,data_entity_id,data_url,price,thumbnail_formatted[0],current_week,category])
             # array_all_hovedretter.append(product_array_data)
 
-            array_associative_forretter["id"].append(data_entity_id)
-            array_associative_forretter["url"].append(data_url)
-            array_associative_forretter["title"].append(title)
-            array_associative_forretter["price"].append(price)
-            array_associative_forretter["thumbnail"].append(thumbnail_formatted[0])
-            array_associative_forretter["large_image"].append(thumbnail_formatted[0])
-            array_associative_forretter["week"].append(current_week)
-            array_associative_forretter["category"].append(category)
+            array_associative_forretter.update({"id": data_entity_id})
+            array_associative_forretter.update({"url": data_url})
+            array_associative_forretter.update({"title": title})
+            array_associative_forretter.update({"price": price})
+            array_associative_forretter.update({"thumbnail": "https://detdanskemadhus.dk/"+thumbnail_formatted[0]})
+            array_associative_forretter.update({"large_image": "https://detdanskemadhus.dk/"+thumbnail_formatted[0]})
+            array_associative_forretter.update({"week": current_week})
+            array_associative_forretter.update({"category": category})
 
-            array_all.append(array_associative_forretter)
+            array_all["items"].append(array_associative_forretter)
         driver_forretter.quit()
     
         ### Desserter
-        driver_desserter = webdriver.Chrome(options=options, executable_path=r"C:\Users\kynet\Desktop\Python\Kunder\DDM\scraper\Browsers\chromedriver.exe")
+        driver_desserter = webdriver.Chrome(options=options, executable_path=r"C:\Users\Drilon Braha\Desktop\Python\KYNETIC\DDM_selscraper\scraper\Browsers\chromedriver.exe")
         driver_desserter.get("https://detdanskemadhus.dk/bestil-privat#desserter")
         try:
             element = WebDriverWait(driver_desserter, 5).until(
@@ -124,7 +124,7 @@ finally:
             array_all_desserter = []
             for product in products[2]:
                 iterator += 1
-                array_associative_desserter = {"id":[], "url":[], "title":[], "price":[], "thumbnail":[], "large_image":[], "week":[], "category":[]}
+                array_associative_desserter = {}
                 title = product.find('h3').contents[0].strip()
                 data_entity_id = product["data-entity-id"]
                 data_url = product["data-url"]
@@ -136,20 +136,20 @@ finally:
                 # product_array_data.extend([title,data_entity_id,data_url,price,thumbnail_formatted[0],current_week,category])
                 # array_all_hovedretter.append(product_array_data)
 
-                array_associative_desserter["id"].append(data_entity_id)
-                array_associative_desserter["url"].append(data_url)
-                array_associative_desserter["title"].append(title)
-                array_associative_desserter["price"].append(price)
-                array_associative_desserter["thumbnail"].append(thumbnail_formatted[0])
-                array_associative_desserter["large_image"].append(thumbnail_formatted[0])
-                array_associative_desserter["week"].append(current_week)
-                array_associative_desserter["category"].append(category)
+                array_associative_desserter.update({"id": data_entity_id})
+                array_associative_desserter.update({"url": data_url})
+                array_associative_desserter.update({"title": title})
+                array_associative_desserter.update({"price": price})
+                array_associative_desserter.update({"thumbnail": "https://detdanskemadhus.dk/"+thumbnail_formatted[0]})
+                array_associative_desserter.update({"large_image": "https://detdanskemadhus.dk/"+thumbnail_formatted[0]})
+                array_associative_desserter.update({"week": current_week})
+                array_associative_desserter.update({"category": category})
 
-                array_all.append(array_associative_desserter)
+                array_all["items"].append(array_associative_desserter)
             driver_desserter.quit()
 
             ### Familiepakker
-            driver_familiepakker = webdriver.Chrome(options=options, executable_path=r"C:\Users\kynet\Desktop\Python\Kunder\DDM\scraper\Browsers\chromedriver.exe")
+            driver_familiepakker = webdriver.Chrome(options=options, executable_path=r"C:\Users\Drilon Braha\Desktop\Python\KYNETIC\DDM_selscraper\scraper\Browsers\chromedriver.exe")
             driver_familiepakker.get("https://detdanskemadhus.dk/bestil-privat#familiepakker")
             try:
                 element = WebDriverWait(driver_familiepakker, 5).until(
@@ -166,7 +166,7 @@ finally:
                 array_all_familiepakker = []
                 for product in products[3]:
                     iterator += 1
-                    array_associative_familiepakker = {"id":[], "url":[], "title":[], "price":[], "thumbnail":[], "large_image":[], "week":[], "category":[]}
+                    array_associative_familiepakker = {}
                     title = product.find('h3').contents[0].strip()
                     data_entity_id = product["data-entity-id"]
                     data_url = product["data-url"]
@@ -178,16 +178,16 @@ finally:
                     # product_array_data.extend([title,data_entity_id,data_url,price,thumbnail_formatted[0],current_week,category])
                     # array_all_hovedretter.append(product_array_data)
 
-                    array_associative_familiepakker["id"].append(data_entity_id)
-                    array_associative_familiepakker["url"].append(data_url)
-                    array_associative_familiepakker["title"].append(title)
-                    array_associative_familiepakker["price"].append(price)
-                    array_associative_familiepakker["thumbnail"].append(thumbnail_formatted[0])
-                    array_associative_familiepakker["large_image"].append(thumbnail_formatted[0])
-                    array_associative_familiepakker["week"].append(current_week)
-                    array_associative_familiepakker["category"].append(category)
+                    array_associative_familiepakker.update({"id": data_entity_id})
+                    array_associative_familiepakker.update({"url": data_url})
+                    array_associative_familiepakker.update({"title": title})
+                    array_associative_familiepakker.update({"price": price})
+                    array_associative_familiepakker.update({"thumbnail": "https://detdanskemadhus.dk/"+thumbnail_formatted[0]})
+                    array_associative_familiepakker.update({"large_image": "https://detdanskemadhus.dk/"+thumbnail_formatted[0]})
+                    array_associative_familiepakker.update({"week": current_week})
+                    array_associative_familiepakker.update({"category": category})
 
-                    array_all.append(array_associative_familiepakker)
+                    array_all["items"].append(array_associative_familiepakker)
                 driver_familiepakker.quit()
                 # print(array_all)
                 print(array_all)
@@ -196,7 +196,7 @@ finally:
                 # json_object = json.dumps(array_all, indent = 1) 
 
                 ### Create JSON file and import data
-                with open("testfile.json", "w") as f:
+                with open("testfile.json", "w", encoding='utf8') as f:
                     f.write(json.dumps(array_all, separators=(',', ': ')))
                     print("::: JSON file created & data dumped.")
                     # print(json_object)
